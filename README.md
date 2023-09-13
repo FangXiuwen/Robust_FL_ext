@@ -1,18 +1,10 @@
-# 目录
+# RHFL+ 描述
 
-[TOC]
+RHFL+（鲁棒异构联邦学习）是一种联邦学习框架，用于解决具有噪声和异构客户端的鲁棒联邦学习问题：
 
-# RHFL 描述
-
-RHFL（鲁棒异构联邦学习）是一种联邦学习框架，用于解决具有噪声和异构客户端的鲁棒联邦学习问题：
-
-1. 在异构联邦学习中调整logits输出分布。
-2. 使用具有抗噪的损失函数学习来对抗局部噪声。
-3. 客户机置信度重新加权来对抗外部噪声。
-
-# 模型架构
-
-![image-20220629214205667](https://cdn.jsdelivr.net/gh/xiye7lai/cdn/bg/pic/image-20220629214205667.png)
+1. 在异构联邦学习中调整logits输出分布实现异构模型通信。
+2. 设计抗噪声的鲁棒本地学习策略来对抗本地噪声。
+3. 设计抗噪声反馈的协作学习策略对抗外部噪声。
 
 # 数据集
 
@@ -146,28 +138,28 @@ rhfl: 联邦训练相关参数
 # 预训练本地模型
 python pretrain.py
 # RHFL
-python rhfl.py
+python rhfl_ext.py
 ```
 
 训练过程日志
 
 ```log
-2023-03-22 15:01:08,237 - RHFL.py[line:148] - INFO: Random Seed and Server Config
-2023-03-22 15:01:08,240 - RHFL.py[line:152] - INFO: Initialize Participants' Data idxs and Model
-2023-03-22 15:01:08,248 - RHFL.py[line:158] - INFO: {0: array([11841, 19602, 45519, ..., 47278, 37020,  2217]), 1: array([28921, 11971, 15919, ..., 46749, 41193, 22418]), 2: array([36011, 11643, 45353, ..., 42473, 40043, 26550]), 3: array([ 8777,  6584, 42707, ..., 25134, 39808, 32076])}
-2023-03-22 15:01:10,502 - RHFL.py[line:161] - INFO: Load Participants' Models
-2023-03-22 15:01:11,111 - RHFL.py[line:172] - INFO: Initialize Public Data Parameters
+2023-03-22 15:01:08,237 - rhfl_ext.py[line:148] - INFO: Random Seed and Server Config
+2023-03-22 15:01:08,240 - rhfl_ext.py[line:152] - INFO: Initialize Participants' Data idxs and Model
+2023-03-22 15:01:08,248 - rhfl_ext.py[line:158] - INFO: {0: array([11841, 19602, 45519, ..., 47278, 37020,  2217]), 1: array([28921, 11971, 15919, ..., 46749, 41193, 22418]), 2: array([36011, 11643, 45353, ..., 42473, 40043, 26550]), 3: array([ 8777,  6584, 42707, ..., 25134, 39808, 32076])}
+2023-03-22 15:01:10,502 - rhfl_ext.py[line:161] - INFO: Load Participants' Models
+2023-03-22 15:01:11,111 - rhfl_ext.py[line:172] - INFO: Initialize Public Data Parameters
 ```
 
 训练结果日志
 训练checkpoint将被保存在`Model_Storage/RHFL/Loss函数名（SCE,CE）/噪声类型+噪声率`中，你可以从如下的log文件中获取结果，log文件被保存在/Logs中。
 
 ```log
-2023-03-22 15:01:21,158 - RHFL.py[line:356] - INFO: Final Evaluate Models
-2023-03-22 15:02:01,005 - RHFL.py[line:105] - INFO: Test: Accuracy: 77.1%, Avg loss: 2.888967
-2023-03-22 15:02:16,866 - RHFL.py[line:105] - INFO: Test: Accuracy: 77.2%, Avg loss: 2.835910
-2023-03-22 15:03:01,027 - RHFL.py[line:105] - INFO: Test: Accuracy: 68.5%, Avg loss: 3.767210
-2023-03-22 15:03:33,415 - RHFL.py[line:105] - INFO: Test: Accuracy: 76.8%, Avg loss: 2.708377
+2023-03-22 15:01:21,158 - rhfl_ext.py[line:356] - INFO: Final Evaluate Models
+2023-03-22 15:02:01,005 - rhfl_ext.py[line:105] - INFO: Test: Accuracy: 77.1%, Avg loss: 2.888967
+2023-03-22 15:02:16,866 - rhfl_ext.py[line:105] - INFO: Test: Accuracy: 77.2%, Avg loss: 2.835910
+2023-03-22 15:03:01,027 - rhfl_ext.py[line:105] - INFO: Test: Accuracy: 68.5%, Avg loss: 3.767210
+2023-03-22 15:03:33,415 - rhfl_ext.py[line:105] - INFO: Test: Accuracy: 76.8%, Avg loss: 2.708377
 ```
 
 # 评估
@@ -269,7 +261,7 @@ python eval.py
 
 # 随机情况说明
 
-在pretrain.py, rhfl.py，eval.py中，我们设置了random.seed(0)和np.random.seed(0)种子。
+在pretrain.py, rhfl_ext.py，eval.py中，我们设置了random.seed(0)和np.random.seed(0)种子。
 
 # 贡献指南
 
@@ -278,7 +270,3 @@ python eval.py
 ## 贡献者
 
 - [朱少本](zhushaoben@163.com) (武汉大学)
-
-# ModelZoo 主页
-
-请浏览官方[主页](https://gitee.com/mindspore/models)。
