@@ -262,11 +262,3 @@ python eval.py
 # 随机情况说明
 
 在pretrain.py, rhfl_ext.py，eval.py中，我们设置了random.seed(0)和np.random.seed(0)种子。
-
-# 贡献指南
-
-如果你想参与贡献昇思的工作当中，请阅读[昇思贡献指南](https://gitee.com/mindspore/models/blob/master/CONTRIBUTING_CN.md)和[how_to_contribute](https://gitee.com/mindspore/models/tree/master/how_to_contribute)
-
-## 贡献者
-
-- [朱少本](zhushaoben@163.com) (武汉大学)
